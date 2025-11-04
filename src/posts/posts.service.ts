@@ -89,4 +89,20 @@ export class PostsService {
     });
     return newReply;
   }
+
+  /**
+   * Fetches ALL posts and replies in a flat list.
+   */
+  async getAllPosts(): Promise<CommentNode[]> {
+    return this.prisma.PrismaClient.commentNode.findMany({
+      include: {
+        author: {
+          select: { username: true },
+        },
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
+  }
 }

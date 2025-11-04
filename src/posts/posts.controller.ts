@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Req } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Req, Get } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto, CreateReplyDto } from './dto/posts.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
@@ -23,5 +23,10 @@ export class PostsController {
       createReplyDto,
       (req.user as { id: string; username: string }).id,
     );
+  }
+
+  @Get('')
+  getAllPosts() {
+    return this.postsService.getAllPosts();
   }
 }
